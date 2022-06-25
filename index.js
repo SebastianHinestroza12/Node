@@ -1,10 +1,31 @@
 const express = require('express');
 const { create } = require("express-handlebars");
-const app = express();
+const session = require("express-session");
+const flash = require("connect-flash");
 //configuracion variables de entorno
 require('dotenv').config();
 // importando nuestra db
 require('./database/db.js');
+
+const app = express();
+
+app.use(session({
+  secret: 'keyboard-secret',
+  resave: false,
+  saveUninitialized: false,
+  name: 'secret-name'
+}));
+
+app.use(flash());
+
+app.get("/mensaje-flash", (req, res) => {
+  res.json(req.flash("mensaje"));
+});
+
+app.get("/campos-validados", (req, res) => {
+  req.flash("mensaje", "todos los campos fueron validados");
+  res.redirect("/mensaje-flash");
+});
 
 
 const hbs = create({

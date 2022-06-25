@@ -1,0 +1,42 @@
+<h1 class='text-center my-5'>Registrarse</h1>
+
+<div class="row justify-content-center">
+  <div class="col-md-9">
+    <form action="/auth/register" method="POST">
+      <input
+        type="text"
+        name="userName"
+        class="form-control mb-2"
+        placeholder="Nombre"
+        autocomplete="off"
+      />
+
+      <input
+        type="email"
+        name="email"
+        class="form-control mb-2"
+        placeholder="Email"
+        autocomplete="off"
+      />
+
+      <input
+        type="password"
+        name="password"
+        class="form-control mb-2"
+        placeholder="Contraseña"
+        autocomplete="off"
+      />
+
+      <input
+        type="password"
+        name="repetir_password"
+        class="form-control mb-2"
+        placeholder="Repetir Contraseña"
+        autocomplete="off"
+      />
+
+      <button type="submit" name="btn" class="btn btn-primary mb-4">Registrar
+        Usuario</button>
+    </form>
+  </div>
+</div>

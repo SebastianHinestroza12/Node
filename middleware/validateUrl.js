@@ -6,8 +6,7 @@ const validate = (req, res, next) => {
     const urlFrontend = new URL(origin);
     if (urlFrontend.origin !== "null") {
         if (
-            urlFrontend.protocol === "http:" ||
-            urlFrontend.protocol === "https:"
+            urlFrontend.protocol === "http:" || urlFrontend.protocol === "https:"
         ) {
             return next();
         }
