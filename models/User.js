@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const bcryptjs  = require('bcryptjs')
+const bcrypt  = require('bcryptjs')
 
 
 const userSchema = new Schema({
@@ -29,18 +29,18 @@ const userSchema = new Schema({
   },
   cuentaConfirmada: {
     type: Boolean,
-    default: false
+    default: true
   }
 });
 
 
 userSchema.pre('save', async function (next) { 
-  const user = this
+  const user = this;
   if (!user.isModified('password')) return next();
 
   try {
-    const salt = await bcryptjs.genSalt(10);
-    const hash = await bcryptjs.hash(user.password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.password, salt);
 
     user.password = hash;
     next();
@@ -53,7 +53,8 @@ userSchema.pre('save', async function (next) {
   }
 })
 
+
 userSchema.methods.comparePassword = async function (cantidadPassword) { 
-  return await bcryptjs.compare(cantidadPassword, userSchema.password);
+  return await bcrypt.compare(cantidadPassword, userSchema.password);
 }
 module.exports = mongoose.model('User',userSchema);
